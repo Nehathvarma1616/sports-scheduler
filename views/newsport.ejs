@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New sport</title>
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+  </head>
+  <body
+    style="
+      margin-left: 5%;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image: linear-gradient(180deg, rgb(134, 188, 221), white);
+      background-repeat: no-repeat;
+    "
+  >
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 15px;
+      "
+      class="line_1"
+    >
+      <a href="/admin_1">Home</a>
+      <p>&rarr;</p>
+      <p style="margin-left: 5px">Create New Sport</p>
+    </div>
+    <div class="line_2">
+      <p style="font-size: 55px">Create New Sport</p>
+    </div>
+    <form action="/createSport" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <div class="line_3">
+        <p>What is the sport name ?</p>
+        <input
+          style="
+            width: 90%;
+            height: 30px;
+            padding: 4px;
+            padding-left: 10px;
+            border: 0.1px solid rgb(93, 139, 185);
+            border-radius: 8px;
+            background-color: rgb(196, 220, 228);
+          "
+          type="text"
+          name="sportName"
+          placeholder="Write here !"
+        />
+      </div>
+      <div style="margin-top: 50px; display: flex; justify-content: center">
+        <button
+          style="
+            height: 40px;
+            width: 90px;
+            color: white;
+            background-color: rgb(6, 6, 254);
+            border: none;
+            border-radius: 8px;
+          "
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

@@ -95,9 +95,11 @@ app.get("/admin_singnup", (request, response) => {
     csrfToken: request.csrfToken(),
   });
 });
-app.get("/admin_1", (request, response) => {
+app.get("/admin_1", async (request, response) => {
+  const sportlist = await Sport.getSport();
   response.render("admin_1", {
     csrfToken: request.csrfToken(),
+    sportlist
   });
 });
 
@@ -139,14 +141,24 @@ app.post("/users", async (request, response) => {
   }
 });
 
+app.get("/signout", (request, response, next) => {
+  request.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    response.redirect("/");
+  });
+});
+
 
 app.post("/createSport", async (request, response) => {
-  const sporName = request.body.sportName;
-
+  const sporName = request.body.sportName; 
+  const sportlist = Sport.getSport();
   try {
     const sport = await Sport.create({
-      sportName: sporName,
+      sportName: sporName,sportlist
     });
+    response.render("/admin_1")
   } catch (error) {
     console.log(error);
   }
@@ -156,6 +168,16 @@ app.post(
   "/session",
   passport.authenticate("local", {
     failureRedirect: "/admin_index",
+    failureFlash: true,
+  }),
+  (request, response) => {
+    response.redirect("/admin_1");
+  }
+);
+app.post(
+  "/session",
+  passport.authenticate("local", {
+    failureRedirect: "/player_index",
     failureFlash: true,
   }),
   (request, response) => {

@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+    static async getSport() {
+      return this.findAll();
+    }
   }
   Sport.init({
     sportName: DataTypes.STRING
